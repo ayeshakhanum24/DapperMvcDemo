@@ -1,0 +1,53 @@
+﻿@model Person
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h3>Add Person</h3>
+<a href="/Person/DisplayAll" class="btn my-2 btn-primary">Display All</a>
+
+<form asp-action="Add">
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" type="text" class="form-control">
+        <span class="text-danger " asp-validation-for="Name"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="text" class="form-control">
+        <span class="text-danger " asp-validation-for="Email"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Address" class="form-label">Address</label>
+        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+        <span class="text-danger" asp-validation-for="Address"></span>
+    </div>
+
+    <!-- Department Dropdown -->
+    <div class="mb-3">
+        <label for="DeptId" class="form-label">Department</label>
+        <select asp-for="DeptId" class="form-control">
+            <option value="">Select Department</option>
+            @foreach (var dept in ViewBag.Departments as IEnumerable<Department>)
+            {
+                <option value="@dept.DeptId">@dept.DeptName</option>
+            }
+        </select>
+        <span class="text-danger" asp-validation-for="DeptId"></span>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="mb-3">
+            @TempData["msg"]
+        </div>
+    }
+
+    <div class="mb-3">
+        <button type="submit" class="btn-primary btn">Save</button>
+    </div>
+</form>

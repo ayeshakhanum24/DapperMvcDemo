@@ -1,0 +1,43 @@
+﻿<h3>People From External API</h3>
+
+<table id="externalPeople" class="display table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:5218/api/Person", // Make sure this matches your API endpoint
+                method: "GET",
+                success: function (data) {
+                    $('#externalPeople').DataTable({
+                        data: data,
+                        columns: [
+                            { data: "name" },
+                            { data: "email" },
+                            { data: "address" },
+                            { data: "deptName" }
+                        ]
+                    });
+                },
+                error: function () {
+                    alert("Failed to load data from external API.");
+                }
+            });
+        });
+    </script>
+}
